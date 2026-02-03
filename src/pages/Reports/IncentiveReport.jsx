@@ -98,7 +98,14 @@ const IncentiveReport = () => {
                 </thead>
                 <tbody>
                     {loading ? (
-                        <tr><td colSpan="6" style={{textAlign:'center'}}>Loading...</td></tr>
+                        <tr>
+                            <td colSpan="6" style={{padding: '5rem'}}>
+                                <div className="loader-container">
+                                    <div className="loader"></div>
+                                    <div className="loader-text">Generating Performance Report...</div>
+                                </div>
+                            </td>
+                        </tr>
                     ) : report.length === 0 ? (
                         <tr><td colSpan="6" style={{textAlign:'center'}}>No Data Found</td></tr>
                     ) : (

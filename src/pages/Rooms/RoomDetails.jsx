@@ -22,7 +22,14 @@ const RoomDetails = () => {
     fetchRoom();
   }, [id]);
 
-  if (loading) return <div className="container" style={{textAlign:'center', marginTop:'4rem'}}>Loading...</div>;
+  if (loading) return (
+    <div className="container" style={{marginTop:'8rem'}}>
+      <div className="loader-container">
+        <div className="loader"></div>
+        <div className="loader-text">Loading Room Details...</div>
+      </div>
+    </div>
+  );
   if (!room) return <div className="container" style={{textAlign:'center', marginTop:'4rem'}}>Room not found</div>;
 
   let images = [];
