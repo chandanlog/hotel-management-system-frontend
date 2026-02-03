@@ -60,7 +60,10 @@ const RoomList = () => {
       </div>
 
       {loading ? (
-          <div style={{textAlign:'center', padding:'2rem', color:'var(--text-muted)'}}>Loading rooms...</div>
+          <div className="loader-container" style={{padding: '4rem'}}>
+              <div className="loader"></div>
+              <div className="loader-text">Finding the perfect rooms for you...</div>
+          </div>
       ) : rooms.length === 0 ? (
           <div style={{textAlign:'center', padding:'4rem', border:'2px dashed var(--glass-border)', borderRadius:'1rem', color:'var(--text-muted)'}}>
               <h3>No rooms found</h3>

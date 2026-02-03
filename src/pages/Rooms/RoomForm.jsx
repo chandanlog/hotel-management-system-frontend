@@ -162,8 +162,13 @@ const RoomForm = () => {
             </div>
         </div>
 
-        <button type="submit" disabled={submitting} className="btn btn-primary" style={{width:'100%', marginTop:'1rem'}}>
-            {submitting ? 'Creating...' : 'Create Room'}
+        <button type="submit" disabled={submitting} className="btn btn-primary" style={{width:'100%', marginTop:'1rem', minHeight: '3.5rem'}}>
+            {submitting ? (
+                <div style={{display:'flex', alignItems:'center', gap:'1rem'}}>
+                    <div className="loader" style={{width:'20px', height:'20px', borderWidth:'2px'}}></div>
+                    <span>Creating Room...</span>
+                </div>
+            ) : 'Create Room'}
         </button>
       </form>
     </div>
