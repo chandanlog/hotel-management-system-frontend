@@ -35,18 +35,34 @@ const IncentiveReport = () => {
   };
 
   const exportCSV = () => {
-    // Basic CSV export logic
-    const headers = ['Agent', 'Total Bookings', 'Total Points', 'Rating', 'Total Incentive'];
-    const rows = report.map(r => [r.agent_name, r.total_bookings, r.total_points, r.rating, r.total_incentive]);
-    const csvContent = "data:text/csv;charset=utf-8," 
-        + headers.join(",") + "\n" 
-        + rows.map(e => e.join(",")).join("\n");
-    const encodedUri = encodeURI(csvContent);
+    // Define headers
+    const headers = ['Agent Name', 'Total Bookings', 'Total Points', 'Rating', 'Total Incentive ($)'];
+    
+    // Format rows and escape commas/quotes
+    const rows = report.map(r => [
+      r.agent_name,
+      r.total_bookings,
+      r.total_points,
+      r.rating,
+      r.total_incentive.toFixed(2)
+    ].map(val => `"${String(val).replace(/"/g, '""')}"`)); // Handle quotes and wrap in quotes
+
+    // Prepare CSV content with BOM for Excel UTF-8 support
+    const csvContent = [
+      headers.map(h => `"${h}"`).join(","),
+      ...rows.map(row => row.join(","))
+    ].join("\n");
+
+    const blob = new Blob(["\ufeff" + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    
     const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "incentive_report.csv");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `Incentive_Report_${new Date().toISOString().split('T')[0]}.csv`);
     document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   }
 
   return (
