@@ -3,7 +3,7 @@ import api from '../../services/api';
 
 const IncentiveReport = () => {
   const [report, setReport] = useState([]);
-  const [filters, setFilters] = useState({ agent_name: '', rating: '', sortBy: '', order: 'asc' });
+  const [filters, setFilters] = useState({ agent_name: '', rating: '', property_type: '', room_category: '', sortBy: '', order: 'asc' });
   const [loading, setLoading] = useState(true);
   const [expandedRow, setExpandedRow] = useState(null);
 
@@ -82,6 +82,33 @@ const IncentiveReport = () => {
                     value={filters.agent_name}
                     onChange={e => setFilters({...filters, agent_name: e.target.value})}
                 />
+            </div>
+            <div className="form-group">
+                <label className="label">Property Type</label>
+                <select 
+                    className="select"
+                    value={filters.property_type}
+                    onChange={e => setFilters({...filters, property_type: e.target.value})}
+                >
+                    <option value="">All Types</option>
+                    <option value="Hotel">Hotel</option>
+                    <option value="Resort">Resort</option>
+                    <option value="Villa">Villa</option>
+                    <option value="Apartment">Apartment</option>
+                </select>
+            </div>
+            <div className="form-group">
+                <label className="label">Room Category</label>
+                <select 
+                    className="select"
+                    value={filters.room_category}
+                    onChange={e => setFilters({...filters, room_category: e.target.value})}
+                >
+                    <option value="">All Categories</option>
+                    <option value="Standard">Standard</option>
+                    <option value="Deluxe">Deluxe</option>
+                    <option value="Suite">Suite</option>
+                </select>
             </div>
             <div className="form-group">
                 <label className="label">Filter by Rating</label>

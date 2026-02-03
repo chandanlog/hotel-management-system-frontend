@@ -33,8 +33,26 @@ const RoomForm = () => {
     ],
   };
 
+  const PRESETS = {
+    Standard: { price: 100, amenities: '<ul><li>Free Wi-Fi</li><li>AC</li><li>Flat Screen TV</li></ul>' },
+    Deluxe: { price: 250, amenities: '<ul><li>Sea View</li><li>Mini Bar</li><li>Premium Bedding</li><li>Complimentary Breakfast</li></ul>' },
+    Suite: { price: 500, amenities: '<ul><li>Private Balcony</li><li>Personal Butler</li><li>Jacuzzi</li><li>Airport Transfer</li></ul>' }
+  };
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+    
+    if (name === 'room_category') {
+      const preset = PRESETS[value] || { price: '', amenities: '' };
+      setFormData(prev => ({
+        ...prev,
+        room_category: value,
+        price_per_night: preset.price
+      }));
+      setAmenities(preset.amenities);
+      return;
+    }
+
     setFormData(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : value
@@ -43,10 +61,24 @@ const RoomForm = () => {
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
-    setImages(files);
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    
+    const validFiles = files.filter(file => {
+      if (file.size > maxSize) {
+        alert(`File ${file.name} is too large. Max size is 5MB.`);
+        return false;
+      }
+      return true;
+    });
+
+    if (validFiles.length !== files.length) {
+      e.target.value = ''; // Reset input if some files were invalid
+    }
+
+    setImages(validFiles);
     
     // Create previews
-    const previews = files.map(file => URL.createObjectURL(file));
+    const previews = validFiles.map(file => URL.createObjectURL(file));
     setImagePreviews(previews);
   };
 
