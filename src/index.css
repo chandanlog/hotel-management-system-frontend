@@ -543,4 +543,53 @@ h3 {
   .report-filters select {
     width: 100%;
   }
+
+  /* Room Details Mobile Fixes */
+  .room-header {
+    height: auto !important;
+    min-height: 40vh;
+  }
+
+  .room-header-content {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 2rem 1rem 1rem 1rem !important;
+  }
+
+  .room-title {
+    font-size: 2rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .room-thumbnails {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+  }
+
+  .room-body {
+    padding: 1.5rem !important;
+  }
+
+  .room-price-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 1rem;
+  }
+
+  .room-price-amount {
+    font-size: 2rem !important;
+    text-align: left !important;
+  }
+
+  .room-footer {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .room-footer button {
+    width: 100%;
+  }
 }
