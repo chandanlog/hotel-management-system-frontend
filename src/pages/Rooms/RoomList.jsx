@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../services/api';
 import { Link } from 'react-router-dom';
+import { LuPlus, LuSearch, LuHotel, LuCalendar, LuTag } from 'react-icons/lu';
+
 
 const RoomList = () => {
   const [rooms, setRooms] = useState([]);
@@ -33,14 +35,19 @@ const RoomList = () => {
            <p className="page-subtitle">Find your perfect stay from our curated collection.</p>
         </div>
         <Link to="/rooms/create" className="btn btn-primary add-room-btn">
-            <span style={{fontSize:'1.2rem'}}>+</span> <span className="btn-text">Add New Room</span>
+            <LuPlus size={20} /> <span className="btn-text">Add New Room</span>
         </Link>
+
       </div>
 
       <div className="card" style={{marginBottom:'2rem'}}>
         <div className="grid-2">
             <div className="form-group">
-                <label className="label">Search by Name or Code</label>
+                <label className="label">
+                    <LuSearch size={14} style={{verticalAlign:'middle', marginRight:'5px'}} />
+                    Search by Name or Code
+                </label>
+
                 <input 
                     className="input" 
                     placeholder="Enter keywords..." 
@@ -95,18 +102,23 @@ const RoomList = () => {
                                     <span className="badge badge-silver" style={{marginBottom:'0.5rem', display:'inline-block'}}>{room.room_category}</span>
                                     <h3 style={{fontSize:'1.25rem', marginBottom:'0.5rem', marginTop:0}}>{room.room_name}</h3>
                                 </div>
-                                <div className="room-price">${room.price_per_night}</div>
+                                <div className="room-price">
+                                    <LuTag size={16} style={{marginRight: '4px'}} />
+                                    {room.price_per_night}
+                                </div>
                             </div>
+
                             
                             <div className="room-meta">
-                                <span>Code: {room.room_code}</span>
+                                <span><LuHotel size={14} style={{marginRight:'4px'}} /> {room.property_type}</span>
                                 <span>•</span>
-                                <span>{room.property_type}</span>
+                                <span>Code: {room.room_code}</span>
                             </div>
                             
                             <div className="room-meta">
-                                <span>Available: {new Date(room.available_from).toLocaleDateString()}</span>
+                                <span><LuCalendar size={14} style={{marginRight:'4px'}} /> {new Date(room.available_from).toLocaleDateString()}</span>
                             </div>
+
 
                             <div style={{marginTop:'1rem', display:'flex', gap:'0.5rem'}}>
                                 <Link to={`/rooms/${room.id}`} className="btn btn-primary" style={{flex:1, fontSize:'0.8rem'}}>View Details</Link>

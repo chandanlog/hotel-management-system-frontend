@@ -3,6 +3,20 @@ import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 import api from '../../services/api';
 import { useNavigate } from 'react-router-dom';
+import { 
+    LuHotel, 
+    LuLayers, 
+    LuTag, 
+    LuCode, 
+    LuFileText, 
+    LuCheck,
+    LuImage, 
+    LuList, 
+    LuSave, 
+    LuCalendar 
+} from 'react-icons/lu';
+
+
 
 const RoomForm = () => {
   const navigate = useNavigate();
@@ -112,14 +126,20 @@ const RoomForm = () => {
 
   return (
     <div className="container animate-fade-in" style={{maxWidth: '900px'}}>
-      <h1>Add New Room</h1>
+      <h1 style={{display:'flex', alignItems:'center', gap:'12px'}}>
+          <LuHotel /> Add New Room
+      </h1>
+
       
       {error && <div style={{padding: '1rem', background: 'var(--danger)', color: 'white', borderRadius: '0.5rem', marginBottom: '1rem'}}>{error}</div>}
 
       <form onSubmit={handleSubmit} className="card">
         <div className="grid-2">
             <div className="form-group">
-                <label className="label">Property Type</label>
+                <label className="label" style={{display:'flex', alignItems:'center', gap:'6px'}}>
+                    <LuHotel size={14} /> Property Type
+                </label>
+
                 <select name="property_type" className="select" value={formData.property_type} onChange={handleChange}>
                     <option value="Hotel">Hotel</option>
                     <option value="Resort">Resort</option>
@@ -128,7 +148,11 @@ const RoomForm = () => {
                 </select>
             </div>
             <div className="form-group">
-                <label className="label">Room Category</label>
+                <label className="label" style={{display:'flex', alignItems:'center', gap:'6px'}}>
+                    <LuLayers size={14} /> Room Category
+                </label>
+
+
                 <select name="room_category" className="select" value={formData.room_category} onChange={handleChange}>
                     <option value="Standard">Standard</option>
                     <option value="Deluxe">Deluxe</option>
@@ -139,24 +163,36 @@ const RoomForm = () => {
 
         <div className="grid-2">
             <div className="form-group">
-                <label className="label">Room Name</label>
+                <label className="label" style={{display:'flex', alignItems:'center', gap:'6px'}}>
+                    <LuFileText size={14} /> Room Name
+                </label>
+
                 <input required name="room_name" className="input" value={formData.room_name} onChange={handleChange} placeholder="e.g. Ocean View Suite" />
             </div>
             <div className="form-group">
-                <label className="label">Room Code (10 chars)</label>
+                <label className="label" style={{display:'flex', alignItems:'center', gap:'6px'}}>
+                    <LuCode size={14} /> Room Code (10 chars)
+                </label>
+
                 <input required maxLength="10" name="room_code" className="input" value={formData.room_code} onChange={handleChange} placeholder="e.g. OCEAN00123" />
             </div>
         </div>
 
         <div className="form-group">
-            <label className="label">Description</label>
+            <label className="label" style={{display:'flex', alignItems:'center', gap:'6px'}}>
+                <LuFileText size={14} /> Description
+            </label>
+
             <div className="input" style={{padding: 0, height: 'auto', overflow: 'hidden'}}>
                 <ReactQuill theme="snow" value={description} onChange={setDescription} modules={modules} />
             </div>
         </div>
 
         <div className="form-group">
-            <label className="label">Amenities</label>
+            <label className="label" style={{display:'flex', alignItems:'center', gap:'6px'}}>
+                <LuList size={14} /> Amenities
+            </label>
+
              <div className="input" style={{padding: 0, height: 'auto', overflow: 'hidden'}}>
                 <ReactQuill theme="snow" value={amenities} onChange={setAmenities} modules={modules} />
              </div>
@@ -164,17 +200,26 @@ const RoomForm = () => {
 
         <div className="grid-2">
             <div className="form-group">
-                <label className="label">Price per Night ($)</label>
+                <label className="label" style={{display:'flex', alignItems:'center', gap:'6px'}}>
+                    <LuTag size={14} /> Price per Night ($)
+                </label>
+
                 <input required type="number" name="price_per_night" className="input" value={formData.price_per_night} onChange={handleChange} />
             </div>
             <div className="form-group">
-                <label className="label">Available From</label>
+                <label className="label" style={{display:'flex', alignItems:'center', gap:'6px'}}>
+                    <LuCalendar size={14} /> Available From
+                </label>
+
                 <input required type="datetime-local" name="available_from" className="input" value={formData.available_from} onChange={handleChange} />
             </div>
         </div>
 
         <div className="form-group">
-            <label className="label">Room Images (Max 5MB each)</label>
+            <label className="label" style={{display:'flex', alignItems:'center', gap:'6px'}}>
+                <LuImage size={14} /> Room Images (Max 5MB each)
+            </label>
+
             <input required type="file" multiple accept="image/*" className="input" onChange={handleFileChange} />
             <div style={{display:'flex', gap:'1rem', marginTop:'1rem', overflowX:'auto'}}>
                 {imagePreviews.map((src, i) => (
@@ -185,23 +230,29 @@ const RoomForm = () => {
 
         <div className="grid-2">
             <div className="form-group">
-                <label className="label">Display Order</label>
+                <label className="label" style={{display:'flex', alignItems:'center', gap:'6px'}}>
+                    <LuList size={14} /> Display Order
+                </label>
+
                 <input type="number" name="display_order" className="input" value={formData.display_order} onChange={handleChange} />
             </div>
                  <div className="form-group" style={{display:'flex', alignItems:'center', gap:'0.5rem', paddingTop:'2rem'}}>
                 <input type="checkbox" name="active" checked={formData.active} onChange={handleChange} style={{width:'auto'}} />
-                <label className="label" style={{margin:0}}>Active Listing</label>
+                <label className="label" style={{margin:0, display:'flex', alignItems:'center', gap:'6px'}}>
+                    <LuCheck size={14} /> Active Listing
+                </label>
             </div>
         </div>
 
-        <button type="submit" disabled={submitting} className="btn btn-primary" style={{width:'100%', marginTop:'1rem', minHeight: '3.5rem'}}>
+        <button type="submit" disabled={submitting} className="btn btn-primary" style={{width:'100%', marginTop:'1rem', minHeight: '3.5rem', display:'flex', justifyContent:'center', alignItems:'center', gap:'8px'}}>
             {submitting ? (
                 <div style={{display:'flex', alignItems:'center', gap:'1rem'}}>
                     <div className="loader" style={{width:'20px', height:'20px', borderWidth:'2px'}}></div>
                     <span>Creating Room...</span>
                 </div>
-            ) : 'Create Room'}
+            ) : <><LuSave size={18} /> Create Room</>}
         </button>
+
       </form>
     </div>
   );
