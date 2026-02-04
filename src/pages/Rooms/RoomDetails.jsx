@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import api from '../../services/api';
+import { LuArrowLeft, LuHash, LuCalendar, LuTag, LuHotel, LuLayers } from 'react-icons/lu';
+
 
 const RoomDetails = () => {
   const { id } = useParams();
@@ -39,7 +41,10 @@ const RoomDetails = () => {
 
   return (
     <div className="container animate-fade-in">
-      <Link to="/" className="btn btn-secondary" style={{marginBottom:'2rem', paddingLeft:'1rem'}}>← Back to Collection</Link>
+      <Link to="/" className="btn btn-secondary" style={{marginBottom:'2rem', paddingLeft:'1rem', display:'inline-flex', alignItems:'center', gap:'8px'}}>
+          <LuArrowLeft size={18} /> Back to Collection
+      </Link>
+
       
       <div className="card" style={{padding:0, overflow:'hidden', border:'none', boxShadow:'0 20px 40px -10px rgba(0,0,0,0.5)'}}>
         <div className="room-header" style={{height:'50vh', background:'#0f172a', position:'relative'}}>
@@ -58,9 +63,15 @@ const RoomDetails = () => {
              }}>
                  <div>
                     <div style={{display:'flex', gap:'0.75rem', marginBottom:'1rem'}}>
-                        <span className="badge badge-gold" style={{fontSize: '0.85rem'}}>{room.property_type}</span>
-                        <span className="badge badge-silver" style={{fontSize: '0.85rem'}}>{room.room_category}</span>
+                        <span className="badge badge-gold" style={{fontSize: '0.85rem', display:'inline-flex', alignItems:'center', gap:'4px'}}>
+                            <LuHotel size={14} /> {room.property_type}
+                        </span>
+                        <span className="badge badge-silver" style={{fontSize: '0.85rem', display:'inline-flex', alignItems:'center', gap:'4px'}}>
+                            <LuLayers size={14} /> {room.room_category}
+                        </span>
+
                     </div>
+
                     <h1 className="room-title" style={{fontSize:'3.5rem', margin:0, lineHeight:1, textShadow: '0 4px 10px rgba(0,0,0,0.5)', color: 'white'}}>{room.room_name}</h1>
                  </div>
                  <div className="room-thumbnails" style={{display:'flex', gap:'10px'}}>
@@ -85,14 +96,18 @@ const RoomDetails = () => {
 
         <div className="room-body" style={{padding:'3rem', background: 'var(--bg-card)'}}>
             <div className="room-price-row" style={{display:'flex', justifyContent:'space-between', alignItems:'flex-start', marginBottom:'2rem'}}>
-                <div style={{color:'var(--text-muted)', fontSize:'1.1rem'}}>
-                    Code: <span style={{color:'var(--text-main)', fontFamily:'monospace'}}>{room.room_code}</span>
+                <div style={{color:'var(--text-muted)', fontSize:'1.1rem', display:'inline-flex', alignItems:'center', gap:'6px'}}>
+                    <LuHash size={18} /> Code: <span style={{color:'var(--text-main)', fontFamily:'monospace'}}>{room.room_code}</span>
                 </div>
+
                 <div className="room-price-amount" style={{textAlign:'right'}}>
-                    <div style={{fontSize:'2.5rem', fontWeight:'700', color:'var(--primary)', lineHeight:1}}>${room.price_per_night}</div>
+                    <div style={{fontSize:'2.5rem', fontWeight:'700', color:'var(--primary)', lineHeight:1, display:'flex', alignItems:'center', justifyContent:'flex-end', gap:'8px'}}>
+                        <LuTag size={28} /> ${room.price_per_night}
+                    </div>
                     <div style={{color:'var(--text-muted)', fontSize:'0.9rem'}}>per night</div>
                 </div>
             </div>
+
 
             <div className="grid-2" style={{gap:'4rem', gridTemplateColumns: 'repeat(auto-fit, minmax(min(450px, 100%), 1fr))'}}>
                 <div style={{minWidth: 'min(400px, 100%)'}}>
@@ -111,9 +126,12 @@ const RoomDetails = () => {
             
             <div className="room-footer" style={{marginTop:'4rem', paddingTop:'2rem', borderTop:'1px solid var(--glass-border)', display:'flex', justifyContent:'space-between', alignItems:'center'}}>
                 <div>
-                    <div className="label">Next Available Date</div>
+                    <div className="label" style={{display:'flex', alignItems:'center', gap:'6px'}}>
+                        <LuCalendar size={16} /> Next Available Date
+                    </div>
                     <div style={{fontSize:'1.25rem', fontWeight:'600'}}>{new Date(room.available_from).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</div>
                 </div>
+
                 <button className="btn btn-primary" style={{fontSize:'1.1rem', padding:'1rem 4rem'}}>Book Now</button>
             </div>
         </div>

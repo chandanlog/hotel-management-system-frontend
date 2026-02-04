@@ -1,5 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../services/api';
+import { 
+    LuDownload, 
+    LuUser, 
+    LuSearch, 
+    LuHotel, 
+    LuLayers, 
+    LuStar, 
+    LuChevronDown, 
+    LuChevronUp,
+    LuArrowUpDown
+} from 'react-icons/lu';
+
 
 const IncentiveReport = () => {
   const [report, setReport] = useState([]);
@@ -69,13 +81,19 @@ const IncentiveReport = () => {
     <div>
       <div className="page-header">
         <h1>Agent Performance Report</h1>
-        <button className="btn btn-primary add-room-btn" onClick={exportCSV}>Export CSV</button>
+        <button className="btn btn-primary add-room-btn" onClick={exportCSV} style={{display:'flex', alignItems:'center', gap:'8px'}}>
+            <LuDownload size={18} /> Export CSV
+        </button>
       </div>
+
 
       <div className="card" style={{marginBottom: '2rem'}}>
         <div className="grid-3">
             <div className="form-group">
-                <label className="label">Search Agent</label>
+                <label className="label" style={{display:'flex', alignItems:'center', gap:'6px'}}>
+                    <LuUser size={14} /> Search Agent
+                </label>
+
                 <input 
                     className="input" 
                     placeholder="Result..." 
@@ -84,7 +102,10 @@ const IncentiveReport = () => {
                 />
             </div>
             <div className="form-group">
-                <label className="label">Property Type</label>
+                <label className="label" style={{display:'flex', alignItems:'center', gap:'6px'}}>
+                    <LuHotel size={14} /> Property Type
+                </label>
+
                 <select 
                     className="select"
                     value={filters.property_type}
@@ -98,7 +119,11 @@ const IncentiveReport = () => {
                 </select>
             </div>
             <div className="form-group">
-                <label className="label">Room Category</label>
+                <label className="label" style={{display:'flex', alignItems:'center', gap:'6px'}}>
+                    <LuLayers size={14} /> Room Category
+                </label>
+
+
                 <select 
                     className="select"
                     value={filters.room_category}
@@ -111,7 +136,10 @@ const IncentiveReport = () => {
                 </select>
             </div>
             <div className="form-group">
-                <label className="label">Filter by Rating</label>
+                <label className="label" style={{display:'flex', alignItems:'center', gap:'6px'}}>
+                    <LuStar size={14} /> Filter by Rating
+                </label>
+
                 <select 
                     className="select"
                     value={filters.rating}
@@ -131,14 +159,25 @@ const IncentiveReport = () => {
             <table className="table">
                 <thead>
                     <tr>
-                        <th onClick={() => handleSort('agent_name')} style={{cursor:'pointer'}}>Agent Name ↕</th>
-                        <th onClick={() => handleSort('total_bookings')} style={{cursor:'pointer'}}>Total Bookings ↕</th>
-                        <th onClick={() => handleSort('total_points')} style={{cursor:'pointer'}}>Points ↕</th>
-                        <th onClick={() => handleSort('rating')} style={{cursor:'pointer'}}>Rating ↕</th>
-                        <th onClick={() => handleSort('total_incentive')} style={{cursor:'pointer'}}>Total Incentive ($) ↕</th>
+                        <th onClick={() => handleSort('agent_name')} style={{cursor:'pointer'}}>
+                            <div style={{display:'flex', alignItems:'center', gap:'6px'}}>Agent Name <LuArrowUpDown size={14} /></div>
+                        </th>
+                        <th onClick={() => handleSort('total_bookings')} style={{cursor:'pointer'}}>
+                            <div style={{display:'flex', alignItems:'center', gap:'6px'}}>Total Bookings <LuArrowUpDown size={14} /></div>
+                        </th>
+                        <th onClick={() => handleSort('total_points')} style={{cursor:'pointer'}}>
+                            <div style={{display:'flex', alignItems:'center', gap:'6px'}}>Points <LuArrowUpDown size={14} /></div>
+                        </th>
+                        <th onClick={() => handleSort('rating')} style={{cursor:'pointer'}}>
+                            <div style={{display:'flex', alignItems:'center', gap:'6px'}}>Rating <LuArrowUpDown size={14} /></div>
+                        </th>
+                        <th onClick={() => handleSort('total_incentive')} style={{cursor:'pointer'}}>
+                            <div style={{display:'flex', alignItems:'center', gap:'6px'}}>Total Incentive ($) <LuArrowUpDown size={14} /></div>
+                        </th>
                         <th>Actions</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     {loading ? (
                         <tr>
@@ -167,11 +206,12 @@ const IncentiveReport = () => {
                                     <td>
                                         <button 
                                             className="btn" 
-                                            style={{fontSize:'0.75rem', padding:'0.25rem 0.5rem', background:'var(--bg-main)', border:'1px solid var(--glass-border)', color:'var(--text-main)'}}
+                                            style={{fontSize:'0.75rem', padding:'0.25rem 0.5rem', background:'var(--bg-main)', border:'1px solid var(--glass-border)', color:'var(--text-main)', display:'inline-flex', alignItems:'center', gap:'4px'}}
                                             onClick={() => setExpandedRow(expandedRow === idx ? null : idx)}
                                         >
-                                            {expandedRow === idx ? 'Hide Details' : 'View Breakdown'}
+                                            {expandedRow === idx ? <><LuChevronUp size={14} /> Hide Details</> : <><LuChevronDown size={14} /> View Breakdown</>}
                                         </button>
+
                                     </td>
                                 </tr>
                                 {expandedRow === idx && (
